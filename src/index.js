@@ -1,45 +1,44 @@
-const { GraphQLServer } = require('graphql-yoga')
-const { Prisma } = require('prisma-binding')
+const { GraphQLServer } = require('graphql-yoga');
+const { Prisma } = require('prisma-binding');
+const Query = require('./resolvers/Query');
 
 const resolvers = {
-  Query: {
-    feed(parent, args, ctx, info) {
-      return ctx.db.query.posts({ where: { isPublished: true } }, info)
-    },
-    drafts(parent, args, ctx, info) {
-      return ctx.db.query.posts({ where: { isPublished: false } }, info)
-    },
-    post(parent, { id }, ctx, info) {
-      return ctx.db.query.post({ where: { id } }, info)
-    },
-  },
-  Mutation: {
-    createDraft(parent, { title, text }, ctx, info) {
-      return ctx.db.mutation.createPost(
-        {
-          data: {
-            title,
-            text,
-            isPublished: false,
-          },
-        },
-        info,
-      )
-    },
-    deletePost(parent, { id }, ctx, info) {
-      return ctx.db.mutation.deletePost({ where: { id } }, info)
-    },
-    publish(parent, { id }, ctx, info) {
-      return ctx.db.mutation.updatePost(
-        {
-          where: { id },
-          data: { isPublished: true },
-        },
-        info,
-      )
-    },
-  },
-}
+  Query,
+};
+
+// const resolvers = {
+//   Query: {
+//     feed(parent, args, ctx, info) {
+//       return ctx.db.query.links({ where: { isPublished: true } }, info);
+//     },
+//   },
+//   Mutation: {
+//     createDraft(parent, { title, text }, ctx, info) {
+//       return ctx.db.mutation.createLink(
+//         {
+//           data: {
+//             title,
+//             text,
+//             isPublished: false,
+//           },
+//         },
+//         info
+//       );
+//     },
+//     deleteLink(parent, { id }, ctx, info) {
+//       return ctx.db.mutation.deleteLink({ where: { id } }, info);
+//     },
+//     publish(parent, { id }, ctx, info) {
+//       return ctx.db.mutation.updateLink(
+//         {
+//           where: { id },
+//           data: { isPublished: true },
+//         },
+//         info
+//       );
+//     },
+//   },
+// };
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
@@ -53,6 +52,6 @@ const server = new GraphQLServer({
       debug: true, // log all GraphQL queryies & mutations
     }),
   }),
-})
+});
 
-server.start(() => console.log('Server is running on http://localhost:4000'))
+server.start(() => console.log('Server is running on http://localhost:4000'));
