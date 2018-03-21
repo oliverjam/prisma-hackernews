@@ -1,10 +1,9 @@
 type User {
   id: ID! @unique
   name: String!
-  email: String! @unique
-  password: String!
   links: [Link!]!
   votes: [Vote!]!
+  githubId: String! @unique
 }
 
 type Link {

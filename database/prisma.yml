@@ -15,4 +15,4 @@ datamodel: datamodel.graphql
 seed:
   import: seed.graphql
 
-cluster: public-rosepuma-1/prisma-eu1
+cluster: oliver-81bc61/prisma-eu1

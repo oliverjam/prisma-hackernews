@@ -17,9 +17,7 @@ mutation {
     id
   }
 
-  third: createLink(
-    data: { description: "This is a draft...", url: "https://google.com" }
-  ) {
+  third: createUser(data: { githubId: "9408641", name: "Oliver" }) {
     id
   }
 }
